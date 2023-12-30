@@ -1,5 +1,5 @@
 import { clsx } from "clsx"
-import { TOOLS, Tool } from "../lib/constants"
+import { TOOLS, Tool } from "../utils"
 import { useAppDispatch, useAppSelector } from "../redux/hooks"
 import { setTool } from "../redux/slices/whiteboard"
 
