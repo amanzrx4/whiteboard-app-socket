@@ -7,23 +7,28 @@ export type DrawableElementCommon = {
   y1: number
   x2: number
   y2: number
+  tool: Tool
 }
 
 type WhiteboardSlice = {
   tool: Tool | null
   elements: DrawableElementCommon[]
+  synchedElements: DrawableElementCommon[]
 }
 
 const initialState: WhiteboardSlice = {
   tool: null,
   elements: [],
+  synchedElements: [],
 }
+
+export type Nullable<T> = T | null
 
 const whiteboardSlice = createSlice({
   name: "whiteboardSlice",
   initialState,
   reducers: {
-    setTool: (state, action: PayloadAction<Tool>) => {
+    setTool: (state, action: PayloadAction<Nullable<Tool>>) => {
       state.tool = action.payload
     },
     updateElements: (
@@ -41,8 +46,15 @@ const whiteboardSlice = createSlice({
       if (state.elements.find((el) => el.id === action.payload.id)) return
       state.elements = [...state.elements, action.payload]
     },
+    addSynchedElements: (
+      state,
+      action: PayloadAction<DrawableElementCommon[]>,
+    ) => {
+      state.synchedElements = action.payload
+    },
   },
 })
 
-export const { setTool, addElements, updateElements } = whiteboardSlice.actions
+export const { setTool, addElements, updateElements, addSynchedElements } =
+  whiteboardSlice.actions
 export default whiteboardSlice.reducer

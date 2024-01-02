@@ -9,8 +9,9 @@ export default function Toolbar(props: Props) {
   const dispatch = useAppDispatch()
   const tool = useAppSelector((s) => s.tool)
 
-  const onSelect = (tool: Tool) => {
-    dispatch(setTool(tool))
+  const onSelect = (selectedTool: Tool) => {
+    if (tool === selectedTool) return dispatch(setTool(null))
+    dispatch(setTool(selectedTool))
   }
 
   return (
